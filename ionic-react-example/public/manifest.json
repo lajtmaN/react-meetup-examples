@@ -1,6 +1,6 @@
 {
-  "short_name": "Ionic App",
-  "name": "My Ionic App",
+  "short_name": "Trifork PWA",
+  "name": "Trifork Ionic PWA",
   "icons": [
     {
       "src": "assets/icon/favicon.png",

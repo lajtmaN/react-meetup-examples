@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { AppPage } from './declarations';
 
 import Menu from './components/Menu';
-import Home from './pages/Home';
-import List from './pages/List';
 import { home, list } from 'ionicons/icons';
 
 /* Core CSS required for Ionic components to work properly */
@@ -28,30 +26,40 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+/* Lazy load subpages */
+const Home = React.lazy(() => import('./pages/Home'));
+const List = React.lazy(() => import('./pages/List'));
+
 const appPages: AppPage[] = [
   {
     title: 'Home',
     url: '/home',
-    icon: home
+    icon: home,
   },
   {
     title: 'List',
     url: '/home/list',
-    icon: list
-  }
+    icon: list,
+  },
 ];
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonSplitPane contentId="main">
-        <Menu appPages={appPages} />
-        <IonRouterOutlet id="main">
-          <Route path="/home" component={Home} exact={true} />
-          <Route path="/home/list" component={List} exact={true} />
-          <Route path="/" render={() => <Redirect to="/home"/> } exact={true} />
-        </IonRouterOutlet>
-      </IonSplitPane>
+      <Suspense fallback={<div>Loading...</div>}>
+        <IonSplitPane contentId="main">
+          <Menu appPages={appPages} />
+          <IonRouterOutlet id="main">
+            <Route path="/home" component={Home} exact={true} />
+            <Route path="/home/list" component={List} exact={true} />
+            <Route
+              path="/"
+              render={() => <Redirect to="/home" />}
+              exact={true}
+            />
+          </IonRouterOutlet>
+        </IonSplitPane>
+      </Suspense>
     </IonReactRouter>
   </IonApp>
 );
