@@ -1,0 +1,16 @@
+{
+  "name": "introduction-graphql",
+  "version": "1.0.0",
+  "description": "Introduction to GraphQL",
+  "main": "index.js",
+  "author": "Tim Gjøderum",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "mdx-deck": "^1.10.2",
+    "react-syntax-highlighter": "^10.2.1"
+  },
+  "scripts": {
+    "start": "mdx-deck deck.mdx"
+  }
+}
